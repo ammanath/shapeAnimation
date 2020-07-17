@@ -31,7 +31,7 @@ class _StarsState extends State<Stars> with SingleTickerProviderStateMixin {
     _controller = new AnimationController(
         duration: const Duration(seconds: 1000), vsync: this);
     _controller.addListener(() {
-      updateBubblePosition();
+      //updateBubblePosition();
     });
     _controller.forward();
   }
