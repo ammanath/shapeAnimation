@@ -13,7 +13,7 @@ class _StarsState extends State<Stars> with SingleTickerProviderStateMixin {
   List<Bubble> stars;
   final int numberOfStars = 1;
   final Color color = Colors.amber;
-  final double maxStarsize = 10.0;
+  final double maxStarsize = 20.0;
 
   @override
   void initState() {
