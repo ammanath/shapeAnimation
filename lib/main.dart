@@ -57,12 +57,11 @@ class _SimpleAnimationState extends State<SimpleAnimation>
     return new Scaffold(
       body: new Container(
         padding: EdgeInsets.all(3),
-        child: SafeArea(
+        child: SafeArea( 
           child: new Center(
             child: Column(
               children: [
                 Text('$percent%'),
-                //Text('${_controller.value}'),
                 Container(
                   height: percent.toDouble(),
                   width: percent.toDouble(),
