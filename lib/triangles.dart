@@ -2,7 +2,6 @@ import 'dart:core';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:screen/screen.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 //main() => runApp(MaterialApp(home: App(), debugShowCheckedModeBanner: false));

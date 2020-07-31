@@ -17,4 +17,4 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## Credit
-Credit to https://github.com/anupcowkur/Bubbles which acted as the starting point for this project.
+https://github.com/Fabian-Stein/timeflow
