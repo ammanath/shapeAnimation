@@ -31,7 +31,7 @@ class _StarsState extends State<Stars> with SingleTickerProviderStateMixin {
     _controller = new AnimationController(
         duration: const Duration(seconds: 1000), vsync: this);
     _controller.addListener(() {
-      updateBubblePosition();
+      //updateBubblePosition();
     });
     _controller.forward();
   }
@@ -42,15 +42,55 @@ class _StarsState extends State<Stars> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  GlobalKey _keyContainer = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomPaint(
-        foregroundPainter: BubblePainter(stars: stars, controller: _controller),
-        size: Size(MediaQuery.of(context).size.width,
-            MediaQuery.of(context).size.height),
+      backgroundColor: Colors.greenAccent,
+      body: Column(
+        children: [
+          Container(
+              key: _keyContainer,
+              height: 250,
+              width: 250,
+              decoration: BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              child: new Center(
+                child: new Text(
+                  "Rounded Corner Rectangle Shape",
+                  style: TextStyle(color: Colors.white, fontSize: 22),
+                  textAlign: TextAlign.center,
+                ),
+              )),
+          Spacer(),
+          Text('Test ${_getSizes()} , ${_getPositions()}'),
+        ],
       ),
+
+      // CustomPaint(
+      //   foregroundPainter: BubblePainter(stars: stars, controller: _controller),
+      //   size: Size(MediaQuery.of(context).size.width,
+      //       MediaQuery.of(context).size.height),
+      // ),
     );
+  }
+
+  Size _getSizes() {
+    final RenderBox renderBoxContainer =
+        _keyContainer.currentContext.findRenderObject();
+    final sizeContainer = renderBoxContainer.size;
+    print("SIZE of Container: $sizeContainer");
+    return sizeContainer;
+  }
+
+  Offset _getPositions() {
+    final RenderBox renderBoxContainer =
+        _keyContainer.currentContext.findRenderObject();
+    final positionContainer = renderBoxContainer.localToGlobal(Offset.zero);
+    print("POSITION of Container: $positionContainer ");
+    return positionContainer;
   }
 
   void updateBubblePosition() {
@@ -85,11 +125,11 @@ class Bubble {
   double y;
 
   Bubble(Color colour, double maxStarsize) {
-    this.colour = Colors.blue; //.withOpacity(Random().nextDouble());
+    this.colour = Colors.red;
     this.direction = Random().nextDouble() * 360;
     this.speed = 1;
     this.radius = 8;
-   // Random().nextDouble() * maxStarsize;
+    // Random().nextDouble() * maxStarsize;
     print('Direction : $direction , speed: $speed, radius: $radius ');
   }
 
@@ -119,12 +159,15 @@ class Bubble {
 
   updatePosition() {
     var a = 180 - (direction + 90);
+    x ??= 0;
+    y ??= 0;
     direction > 0 && direction < 180
         ? x += speed * sin(direction) / sin(speed)
         : x -= speed * sin(direction) / sin(speed);
     direction > 90 && direction < 270
         ? y += speed * sin(a) / sin(speed)
         : y -= speed * sin(a) / sin(speed);
+    print('Direction : $direction , x: $x, y: $y ');
   }
 
   randomlyChangeDirectionIfEdgeReached(Size canvasSize) {
