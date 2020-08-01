@@ -6,16 +6,16 @@ import 'package:numberpicker/numberpicker.dart';
 
 //main() => runApp(MaterialApp(home: App(), debugShowCheckedModeBanner: false));
 
-class App extends StatefulWidget {
+class TrianglesWidget extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => TM();
+  State<StatefulWidget> createState() => _TrianglesWidget();
 }
 
 enum ValidStates { pause, play, stop }
 List<Triangle> triangles;
 var percent = 0.0, cTime = 0.0, dur = 120000.0, rng = Random(), rebuild = true;
 
-class TM extends State<App> {
+class _TrianglesWidget extends State<TrianglesWidget> {
   ValidStates currentState = ValidStates.stop;
   Ticker tick;
   var playTime = 0.0;
@@ -25,6 +25,13 @@ class TM extends State<App> {
     //Screen.keepOn(true);
     tick = Ticker(up);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    currentState = ValidStates.stop;
+    tick.dispose();
+    super.dispose();
   }
 
   up(Duration duration) {
@@ -110,7 +117,8 @@ class TM extends State<App> {
       w.add(SizedBox(height: 20));
     }
 
-    Column col1Ofn = Column(mainAxisAlignment: MainAxisAlignment.end, children: w);
+    Column col1Ofn =
+        Column(mainAxisAlignment: MainAxisAlignment.end, children: w);
 
     return Scaffold(
         backgroundColor: Colors.black,
@@ -127,7 +135,8 @@ class TM extends State<App> {
 }
 
 FloatingActionButton fab(Color c, VoidCallback f, IconData iconData) {
-  return FloatingActionButton(backgroundColor: c, onPressed: f, child: Icon(iconData));
+  return FloatingActionButton(
+      backgroundColor: c, onPressed: f, child: Icon(iconData));
 }
 
 class PaintTriangles extends CustomPainter {

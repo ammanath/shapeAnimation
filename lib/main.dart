@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stars_animate/StarsWidget.dart';
 import 'package:stars_animate/bubblesWidget.dart';
+import 'package:stars_animate/triangles.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,11 +11,81 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Stars',
-      home: SimpleAnimation(),
+      home: HomePage(),
     );
   }
 }
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Animations",
+      home: MyStatefulWidget(),
+    );
+  }
+}
+
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  List<Widget> _widgetOptions = <Widget>[
+    Stars(),
+    Container(
+      child:SimpleAnimation()
+    ),
+    Container(
+      child:TrianglesWidget()
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Animations!!!'),
+      ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.lightbulb_outline),
+            title: Text('Bubbles'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.equalizer),
+            title: Text('Simple'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.details),
+            title: Text('Triangles'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
 
 class SimpleAnimation extends StatefulWidget {
   @override
